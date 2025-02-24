@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# ESLint ve Prettier çalıştır
+# branch kontrolü
+CURRENT_BRANCH=$(git branch --show-current)
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+  echo "Hata: Main branch'ine direkt commit atamazsınız!"
+  exit 1
+fi
+
+# lint işlemleri
+yarn lint
 npx lint-staged
